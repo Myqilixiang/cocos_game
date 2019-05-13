@@ -100,9 +100,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 233,
+      "g": 28,
+      "b": 61,
       "a": 255
     },
     "_contentSize": {
@@ -174,7 +174,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "475791d7-2f13-4f86-b416-750e869a3265"
     },
     "fileId": "1bPieuxM1Agqy5Ww90h3kl",
     "sync": false
@@ -225,7 +225,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "475791d7-2f13-4f86-b416-750e869a3265"
     },
     "fileId": "34XYKjOV1FnrePkhQv3aqW",
     "sync": false

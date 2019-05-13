@@ -20,7 +20,7 @@ cc.Class({
         scoreDisplay: {
             default: null,
             type: cc.Label
-        },
+        }
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -36,12 +36,12 @@ cc.Class({
             arr[i] = cc.instantiate(this.bubblePrefab)
         }
         arr.forEach((ele, index) => {
-            ele.setPosition(0,0)
+            ele.setPosition(250 * index - 400, -200)
             this.node.addChild(ele)
         });
     },
     onLoad() {
-        // 初始化计时器
+        // 初始化计时器ƒ
         this.spawnBubble()
         this.node.on('bubbleClick', function (msg) {
             console.log("点击泡泡")
