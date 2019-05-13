@@ -14,6 +14,14 @@ cc.Class({
     properties: {
         riseDuration: 0,
         riseHeight: 0,
+        produceAudio: {
+            default: null,
+            type: cc.AudioClip
+        },
+        scoreAudio: {
+            default: null,
+            type: cc.AudioClip
+        },
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -31,15 +39,24 @@ cc.Class({
     start() {
 
     },
+    playProduceSound() {
+        // 调用声音引擎播放声音
+        cc.audioEngine.playEffect(this.produceAudio, false);
+    },
+    playScoreAudio() {
+        cc.audioEngine.playEffect(this.scoreAudio, false);
+    },
     onLoad() {
         this.riseDuration = 10
         this.riseHeight = 500
-        this.riseAction=this.setRiseAction()
+        this.riseAction = this.setRiseAction()
+        this.playProduceSound()
         this.node.runAction(this.riseAction);
-        this.node.on('mousedown',event=>{
+        this.node.on('mousedown', event => {
             console.log("在泡泡上点击")
+            this.playScoreAudio()
             this.node.stopAction(this.riseAction)
-            this.node.dispatch("bubbleClick",event)
+            this.node.dispatch("bubbleClick", event)
         })
     }
 

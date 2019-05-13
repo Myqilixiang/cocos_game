@@ -217,6 +217,12 @@
     "_enabled": true,
     "riseDuration": 0,
     "riseHeight": 0,
+    "produceAudio": {
+      "__uuid__": "dc194f1a-c8a5-46ca-aaf9-f03b70974af5"
+    },
+    "scoreAudio": {
+      "__uuid__": "55d110b9-bab6-4d9d-9416-03e46904fa35"
+    },
     "_id": ""
   },
   {
