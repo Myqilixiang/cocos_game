@@ -11,7 +11,7 @@ var questions = require('./data')
 cc.Class({
     extends: cc.Component,
     properties: {
-        bubbleNum: 4,//候选单词数量
+        bubbleNum: 4, //候选单词数量
         bubblePrefab: {
             default: null,
             type: cc.Prefab
@@ -19,6 +19,10 @@ cc.Class({
         scoreDisplay: {
             default: null,
             type: cc.Label
+        },
+        word_img: {
+            default: null,
+            type: cc.Sprite
         }
     },
     start() {
@@ -34,6 +38,16 @@ cc.Class({
             this.bubbles[i] = bubbleComp
             this.node.addChild(bubble)
         }
+    },
+    spawnWordImg() {
+        let self = this;
+        cc.loader.loadRes('imgs/dog', cc.SpriteFrame, function (err, spriteFrame) {
+            if (err) {
+                cc.error(err.message || err);
+                return;
+            }
+            self.word_img.spriteFrame = spriteFrame;
+        });
     },
     gainScore(bubble) {
         let tagetWord = bubble.word
@@ -51,6 +65,7 @@ cc.Class({
         this.currentQuestion = questions[0]
         this.score = 0;
         // 初始化计时器ƒ
+        this.spawnWordImg()
         this.spawnBubble()
         this.node.on('bubbleClick', event => {
             let bubble = event.target.getComponent('Bubble')
