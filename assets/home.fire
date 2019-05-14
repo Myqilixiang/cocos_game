@@ -428,8 +428,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 25,
-      "height": 66
+      "width": 120,
+      "height": 100
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -444,9 +444,9 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 3.28,
-      "y": 1.082,
-      "z": 1.082
+      "x": 1,
+      "y": 1,
+      "z": 1
     },
     "_quat": {
       "__type__": "cc.Quat",
