@@ -520,6 +520,9 @@
     "bubblePrefab": {
       "__uuid__": "475791d7-2f13-4f86-b416-750e869a3265"
     },
+    "gameOverPrefab": {
+      "__uuid__": "4dc411ff-8b33-42d5-913a-bdfdc38f8e3b"
+    },
     "scoreDisplay": {
       "__id__": 8
     },

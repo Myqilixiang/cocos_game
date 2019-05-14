@@ -16,6 +16,10 @@ cc.Class({
             default: null,
             type: cc.Prefab
         },
+        gameOverPrefab: {
+            default: null,
+            type: cc.Prefab
+        },
         scoreDisplay: {
             default: null,
             type: cc.Label
@@ -77,23 +81,34 @@ cc.Class({
         this.spawnWordImg()
         this.spawnBubble()
     },
-    gameOver(){
-        this.bubbles.forEach(bubble=>{
+    gameOver() {
+        this.bubbles.forEach(bubble => {
             bubble.stopAction()
         })
+        this.gameOverPanel = cc.instantiate(this.gameOverPrefab)
+        this.gameOverPanel.getComponent('GameOver').scoreDisplay.string = '总分数: ' + this.score;
+        this.node.addChild(this.gameOverPanel)
     },
     onLoad() {
         this.resourceIndex = 0
         this.currentQuestion = questions[this.resourceIndex]
         this.score = 0;
-        // 初始化计时器ƒ
+        // 初始化计时器
         this.spawnWordImg()
         this.spawnBubble()
         this.node.on('bubbleClick', event => {
             let bubble = event.target.getComponent('Bubble')
             this.gainScore(bubble)
         })
+        this.node.on('restartGame', event => {
+            this.gameOverPanel.destroy()
+            this.restartGame()
+        })
     },
+    restartGame() {
+        this.score = 0
+        this.reProduceBubble()
+    }
 
     // update (dt) {},
 });

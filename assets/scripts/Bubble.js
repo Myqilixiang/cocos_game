@@ -53,7 +53,7 @@ cc.Class({
         this.riseAction = this.setRiseAction()
         this.playProduceSound()
         this.node.runAction(this.riseAction);
-        this.node.on('mousedown', event => {
+        this.node.on('touchend', event => {
             this.node.dispatchEvent(new cc.Event.EventCustom('bubbleClick', true));
         })
     }

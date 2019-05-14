@@ -7,6 +7,11 @@ let data = [{
     options: ['plane', 'car', 'bike', 'ship'],
     answer: 'car',
     img: 'imgs/car'
+  },
+  {
+    options: ['pear', 'peach', 'lemon', 'apple'],
+    answer: 'apple',
+    img: 'imgs/apple'
   }
 ]
 module.exports = data
