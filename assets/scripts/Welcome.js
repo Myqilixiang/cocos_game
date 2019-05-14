@@ -32,7 +32,7 @@ cc.Class({
         cc.director.preloadScene("home", function () {
             cc.log("预加载主页");
         });
-        this.node.on('mousedown',e=>{
+        this.node.on('touchend',e=>{
             cc.director.loadScene("home")
         })
     },
