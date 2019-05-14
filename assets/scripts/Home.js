@@ -107,6 +107,7 @@ cc.Class({
     },
     restartGame() {
         this.score = 0
+        this.scoreDisplay.string = '分数: ' + this.score;
         this.reProduceBubble()
     }
 
