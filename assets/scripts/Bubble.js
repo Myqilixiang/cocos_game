@@ -12,9 +12,9 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        riseDuration: 0,
-        riseHeight: 0,
-        word: 'cat',//显示的单词
+        riseDuration: 0,//上升时间
+        riseHeight: 0,//上升高度
+        word: '',//显示的单词
         wordDisplay: {
             default: null,
             type: cc.Label
@@ -28,18 +28,9 @@ cc.Class({
             type: cc.AudioClip
         },
     },
-
-    // LIFE-CYCLE CALLBACKS:
-
-    // onLoad () {},
     setRiseAction() {
         // 跳跃上升
-        var riseUp = cc.moveBy(this.riseDuration, cc.v2(0, this.riseHeight)).easing(cc.easeCubicActionOut());
-
-        // 不断重复，而且每次完成落地动作后调用回调来播放声音
-        //  var callback = cc.callFunc(this.playJumpSound, this);
-        return riseUp
-        //  return cc.repeatForever(cc.sequence(jumpUp, jumpDown, callback));
+        return cc.moveBy(this.riseDuration, cc.v2(0, this.riseHeight)).easing(cc.easeCubicActionOut());
     },
     start() {
 
@@ -54,13 +45,13 @@ cc.Class({
     },
     onLoad() {
         this.wordDisplay.string = this.word
-        this.riseDuration = 10
+        this.riseDuration = 10//TODO:需要参考坐标系  计算合理的高度
         this.riseHeight = 500
         this.riseAction = this.setRiseAction()
         this.playProduceSound()
         this.node.runAction(this.riseAction);
         this.node.on('mousedown', event => {
-            this.node.dispatchEvent(new cc.Event.EventCustom('bubbleClick', true),111);
+            this.node.dispatchEvent(new cc.Event.EventCustom('bubbleClick', true));
         })
     }
 

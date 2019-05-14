@@ -1,8 +1,12 @@
-let data=[
+let data = [{
+    options: ['dog', 'cat', 'duck', 'pig'],
+    answer: 'dog',
+    img: 'assets/textures/dog.png'
+  },
   {
-    options:['dog','cat','duck','pig'],
-    answer:'dog',
-    img:''
+    options: ['plane', 'car', 'bike', 'ship'],
+    answer: 'car',
+    img: ''
   }
 ]
-module.exports=data
+module.exports = data

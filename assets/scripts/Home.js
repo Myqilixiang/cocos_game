@@ -10,9 +10,8 @@
 var questions = require('./data')
 cc.Class({
     extends: cc.Component,
-
     properties: {
-        bubbleNum: 4,
+        bubbleNum: 4,//候选单词数量
         bubblePrefab: {
             default: null,
             type: cc.Prefab
@@ -22,11 +21,6 @@ cc.Class({
             type: cc.Label
         }
     },
-
-    // LIFE-CYCLE CALLBACKS:
-
-    // onLoad () {},
-
     start() {
 
     },
@@ -34,7 +28,7 @@ cc.Class({
         this.bubbles = new Array()
         for (let i = 0; i < this.bubbleNum; i++) {
             let bubble = cc.instantiate(this.bubblePrefab)
-            bubble.setPosition(250 * i - 400, -200)
+            bubble.setPosition(250 * i - 400, -200) //TODO:需要根据坐标系和屏幕宽度计算
             let bubbleComp = bubble.getComponent('Bubble')
             bubbleComp.word = this.currentQuestion.options[i]
             this.bubbles[i] = bubbleComp
@@ -58,8 +52,8 @@ cc.Class({
         this.score = 0;
         // 初始化计时器ƒ
         this.spawnBubble()
-        this.node.on('bubbleClick', msg => {
-            let bubble = msg.target.getComponent('Bubble')
+        this.node.on('bubbleClick', event => {
+            let bubble = event.target.getComponent('Bubble')
             this.gainScore(bubble)
         })
     },
