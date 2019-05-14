@@ -217,6 +217,10 @@
     "_enabled": true,
     "riseDuration": 0,
     "riseHeight": 0,
+    "word": "cat",
+    "wordDisplay": {
+      "__id__": 3
+    },
     "produceAudio": {
       "__uuid__": "dc194f1a-c8a5-46ca-aaf9-f03b70974af5"
     },

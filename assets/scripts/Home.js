@@ -7,7 +7,7 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
-
+var questions = require('./data')
 cc.Class({
     extends: cc.Component,
 
@@ -31,20 +31,36 @@ cc.Class({
 
     },
     spawnBubble() {
-        let arr = new Array()
+        this.bubbles = new Array()
         for (let i = 0; i < this.bubbleNum; i++) {
-            arr[i] = cc.instantiate(this.bubblePrefab)
+            let bubble = cc.instantiate(this.bubblePrefab)
+            bubble.setPosition(250 * i - 400, -200)
+            let bubbleComp = bubble.getComponent('Bubble')
+            bubbleComp.word = this.currentQuestion.options[i]
+            this.bubbles[i] = bubbleComp
+            this.node.addChild(bubble)
         }
-        arr.forEach((ele, index) => {
-            ele.setPosition(250 * index - 400, -200)
-            this.node.addChild(ele)
-        });
+    },
+    gainScore(bubble) {
+        let tagetWord = bubble.word
+        if (tagetWord === this.currentQuestion.answer) {
+            this.score += 1;
+            // 更新 scoreDisplay Label 的文字
+            this.scoreDisplay.string = '分数: ' + this.score;
+            // 播放得分音效
+            bubble.playScoreAudio()
+        } else {
+            bubble.playProduceSound()
+        }
     },
     onLoad() {
+        this.currentQuestion = questions[0]
+        this.score = 0;
         // 初始化计时器ƒ
         this.spawnBubble()
-        this.node.on('bubbleClick', function (msg) {
-            console.log("点击泡泡")
+        this.node.on('bubbleClick', msg => {
+            let bubble = msg.target.getComponent('Bubble')
+            this.gainScore(bubble)
         })
     },
 
