@@ -41,7 +41,7 @@ cc.Class({
     },
     spawnWordImg() {
         let self = this;
-        cc.loader.loadRes('imgs/dog', cc.SpriteFrame, function (err, spriteFrame) {
+        cc.loader.loadRes(this.currentQuestion.img, cc.SpriteFrame, function (err, spriteFrame) {
             if (err) {
                 cc.error(err.message || err);
                 return;
@@ -57,12 +57,34 @@ cc.Class({
             this.scoreDisplay.string = '分数: ' + this.score;
             // 播放得分音效
             bubble.playScoreAudio()
+            this.reProduceBubble()
+            // bubble.removeFromeParent()
         } else {
             bubble.playProduceSound()
+            this.gameOver()
         }
     },
+    reProduceBubble() {
+        this.bubbles.forEach(bubble => {
+            bubble.node.destroy();
+        });
+        if (this.resourceIndex === questions.length - 1) {
+            this.resourceIndex = 0
+        } else {
+            this.resourceIndex += 1
+        }
+        this.currentQuestion = questions[this.resourceIndex]
+        this.spawnWordImg()
+        this.spawnBubble()
+    },
+    gameOver(){
+        this.bubbles.forEach(bubble=>{
+            bubble.stopAction()
+        })
+    },
     onLoad() {
-        this.currentQuestion = questions[0]
+        this.resourceIndex = 0
+        this.currentQuestion = questions[this.resourceIndex]
         this.score = 0;
         // 初始化计时器ƒ
         this.spawnWordImg()

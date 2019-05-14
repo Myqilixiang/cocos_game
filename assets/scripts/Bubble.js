@@ -40,12 +40,15 @@ cc.Class({
         cc.audioEngine.playEffect(this.produceAudio, false);
     },
     playScoreAudio() {
-        this.node.stopAction(this.riseAction)
+        this.stopAction()
         cc.audioEngine.playEffect(this.scoreAudio, false);
+    },
+    stopAction(){
+        this.node.stopAction(this.riseAction)
     },
     onLoad() {
         this.wordDisplay.string = this.word
-        this.riseDuration = 10//TODO:需要参考坐标系  计算合理的高度
+        this.riseDuration = 5*Math.random()+5//TODO:需要参考坐标系  计算合理的高度
         this.riseHeight = 500
         this.riseAction = this.setRiseAction()
         this.playProduceSound()
