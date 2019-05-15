@@ -20,6 +20,14 @@ cc.Class({
             default: null,
             type: cc.Prefab
         },
+        gameoverAudio: {
+            default: null,
+            type: cc.AudioClip
+        },
+        backgroundAudio: {
+            default: null,
+            type: cc.AudioClip
+        },
         scoreDisplay: {
             default: null,
             type: cc.Label
@@ -64,7 +72,6 @@ cc.Class({
             this.reProduceBubble()
             // bubble.removeFromeParent()
         } else {
-            bubble.playProduceSound()
             this.gameOver()
         }
     },
@@ -81,15 +88,30 @@ cc.Class({
         this.spawnWordImg()
         this.spawnBubble()
     },
+    playGameoverSound() {
+        // 调用声音引擎播放声音
+        cc.audioEngine.playEffect(this.gameoverAudio, false);
+    },
+    playBackgroundSound() {
+        // 调用声音引擎播放声音
+        this.bgMusic = cc.audioEngine.playEffect(this.backgroundAudio, true);
+    },
+    stopBackgroundSound() {
+        // 调用声音引擎播放声音
+        cc.audioEngine.stop(this.bgMusic);
+    },
     gameOver() {
         this.bubbles.forEach(bubble => {
             bubble.stopAction()
         })
+        this.stopBackgroundSound()
+        this.playGameoverSound()
         this.gameOverPanel = cc.instantiate(this.gameOverPrefab)
         this.gameOverPanel.getComponent('GameOver').scoreDisplay.string = '总分数: ' + this.score;
         this.node.addChild(this.gameOverPanel)
     },
     onLoad() {
+        this.playBackgroundSound()
         this.resourceIndex = 0
         this.currentQuestion = questions[this.resourceIndex]
         this.score = 0;
@@ -104,12 +126,18 @@ cc.Class({
             this.gameOverPanel.destroy()
             this.restartGame()
         })
+        this.node.on('gameOver', event => {
+            this.gameOver()
+        })
     },
     restartGame() {
         this.score = 0
+        this.playBackgroundSound()
         this.scoreDisplay.string = '分数: ' + this.score;
         this.reProduceBubble()
+    },
+    onDestroy: function () {
+        cc.audioEngine.stop(this.bgMusic);
     }
-
     // update (dt) {},
 });

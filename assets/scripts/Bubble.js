@@ -12,9 +12,9 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        riseDuration: 0,//上升时间
-        riseHeight: 0,//上升高度
-        word: '',//显示的单词
+        riseDuration: 0, //上升时间
+        riseHeight: 0, //上升高度
+        word: '', //显示的单词
         wordDisplay: {
             default: null,
             type: cc.Label
@@ -30,6 +30,7 @@ cc.Class({
     },
     setRiseAction() {
         // 跳跃上升
+        this.updateAction = true//是否执行update中的条件
         return cc.moveBy(this.riseDuration, cc.v2(0, this.riseHeight)).easing(cc.easeCubicActionOut());
     },
     start() {
@@ -43,20 +44,25 @@ cc.Class({
         this.stopAction()
         cc.audioEngine.playEffect(this.scoreAudio, false);
     },
-    stopAction(){
+    stopAction() {
         this.node.stopAction(this.riseAction)
     },
     onLoad() {
         this.wordDisplay.string = this.word
-        this.riseDuration = 5*Math.random()+5//TODO:需要参考坐标系  计算合理的高度
+        this.riseDuration = 5 * Math.random() + 5 //TODO:需要参考坐标系  计算合理的高度
         this.riseHeight = 500
         this.riseAction = this.setRiseAction()
-        this.playProduceSound()
+        // this.playProduceSound()
         this.node.runAction(this.riseAction);
         this.node.on('touchend', event => {
             this.node.dispatchEvent(new cc.Event.EventCustom('bubbleClick', true));
         })
+    },
+    update(dt) {
+        if (this.updateAction&&this.node.getBoundingBoxToWorld().y >= 540) {
+            console.log("hahahh ")
+            this.updateAction = false
+            this.node.dispatchEvent(new cc.Event.EventCustom('gameOver', true));
+        }
     }
-
-    // update (dt) {},
 });

@@ -523,6 +523,12 @@
     "gameOverPrefab": {
       "__uuid__": "4dc411ff-8b33-42d5-913a-bdfdc38f8e3b"
     },
+    "gameoverAudio": {
+      "__uuid__": "0a64096e-46e9-4be3-9940-faf45111d0ae"
+    },
+    "backgroundAudio": {
+      "__uuid__": "2187895e-5e91-4911-b433-be2e66d5eecd"
+    },
     "scoreDisplay": {
       "__id__": 8
     },

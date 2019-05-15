@@ -20,6 +20,11 @@ cc.Class({
             default: null,
             type: cc.Label
         },
+        bg_img: {
+            default: null,
+            type: cc.Sprite
+        },
+
         // foo: {
         //     // ATTRIBUTES:
         //     default: null,        // The default value will be used only when the component attaching
@@ -36,11 +41,16 @@ cc.Class({
         //     }
         // },
     },
+    
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
+        this.bg_img.node.on('touchend', event => {
+            event.stopPropagation()
+        })
         this.restartBtn.node.on('touchend', event => {
+            event.stopPropagation()
             this.node.dispatchEvent(new cc.Event.EventCustom('restartGame', true));
         })
     },
