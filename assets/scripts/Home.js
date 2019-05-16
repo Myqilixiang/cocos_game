@@ -67,11 +67,18 @@ cc.Class({
             this.score += 1;
             // 更新 scoreDisplay Label 的文字
             this.scoreDisplay.string = '分数: ' + this.score;
+            this.stopBubblesAction()
+            bubble.wordDisplay.node.destroy()
             // 播放得分音效
             bubble.playScoreAudio()
-            this.reProduceBubble()
-            // bubble.removeFromeParent()
+            bubble.bubbleImg.spriteFrame = this.smileSprite
+            setTimeout(() => {
+                this.reProduceBubble()
+            }, 1000);
         } else {
+            this.stopBubblesAction()
+            bubble.wordDisplay.node.destroy()
+            bubble.bubbleImg.spriteFrame = this.crySprite
             this.gameOver()
         }
     },
@@ -100,17 +107,37 @@ cc.Class({
         // 调用声音引擎播放声音
         cc.audioEngine.stop(this.bgMusic);
     },
-    gameOver() {
+    stopBubblesAction() {
         this.bubbles.forEach(bubble => {
             bubble.stopAction()
         })
+    },
+    gameOver() {
+        this.stopBubblesAction()
         this.stopBackgroundSound()
         this.playGameoverSound()
         this.gameOverPanel = cc.instantiate(this.gameOverPrefab)
         this.gameOverPanel.getComponent('GameOver').scoreDisplay.string = '总分数: ' + this.score;
         this.node.addChild(this.gameOverPanel)
     },
+    preLoadSprite() {
+        cc.loader.loadRes('imgs/smile', cc.SpriteFrame, (err, spriteFrame) => {
+            if (err) {
+                cc.error(err.message || err);
+                return;
+            }
+            this.smileSprite = spriteFrame;
+        });
+        cc.loader.loadRes('imgs/cry', cc.SpriteFrame, (err, spriteFrame) => {
+            if (err) {
+                cc.error(err.message || err);
+                return;
+            }
+            this.crySprite = spriteFrame;
+        });
+    },
     onLoad() {
+        this.preLoadSprite()
         this.playBackgroundSound()
         this.resourceIndex = 0
         this.currentQuestion = questions[this.resourceIndex]
