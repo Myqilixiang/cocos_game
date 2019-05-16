@@ -65,12 +65,12 @@ cc.Class({
         let tagetWord = bubble.word
         if (tagetWord === this.currentQuestion.answer) {
             this.score += 1;
+            bubble.playScoreAudio()
             // 更新 scoreDisplay Label 的文字
             this.scoreDisplay.string = '分数: ' + this.score;
             this.stopBubblesAction()
             bubble.wordDisplay.node.destroy()
             // 播放得分音效
-            bubble.playScoreAudio()
             bubble.bubbleImg.spriteFrame = this.smileSprite
             setTimeout(() => {
                 this.reProduceBubble()
