@@ -52,12 +52,15 @@ cc.Class({
         }
     },
     spawnWordImg() {
+        let screenWidth = cc.view.getFrameSize().width;
+        let screenHeight = cc.view.getFrameSize().height;
         let self = this;
         cc.loader.loadRes(this.currentQuestion.img, cc.SpriteFrame, function (err, spriteFrame) {
             if (err) {
                 cc.error(err.message || err);
                 return;
             }
+            self.word_img.node.setPosition(-(screenWidth / 2) + 120, screenHeight / 2 - 100)
             self.word_img.spriteFrame = spriteFrame;
         });
     },
@@ -136,11 +139,17 @@ cc.Class({
             this.crySprite = spriteFrame;
         });
     },
+    setScoreWordPosition() {
+        let screenWidth = cc.view.getFrameSize().width;
+        let screenHeight = cc.view.getFrameSize().height;
+        this.scoreDisplay.node.setPosition(screenWidth / 2 - 150, screenHeight / 2 - 80)
+    },
     onLoad() {
+        this.setScoreWordPosition()
         this.preLoadSprite()
         this.playBackgroundSound()
         this.resourceIndex = 0
-        this.currentQuestion = questions[this.resourceIndex]
+        this.currentQuestion = questions[this.resou∏erceIndex]
         this.score = 0;
         // 初始化计时器
         this.spawnWordImg()
